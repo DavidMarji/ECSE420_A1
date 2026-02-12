@@ -64,7 +64,7 @@ public class MatrixMultiplication {
 		// }
 
 		runThreadScalingExperiment(2000, new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15});
-		runSizeScalingExperiment(new int[]{100,200,500,1000,2000,3000,4000}, 8);
+		runSizeScalingExperiment(new int[]{100,200,500,1000,2000,3000,4000}, 7);
 	}
 
 	/**
