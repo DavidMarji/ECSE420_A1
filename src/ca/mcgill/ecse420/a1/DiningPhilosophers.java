@@ -5,15 +5,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class DiningPhilosophers {
-	
-	public static void main(String[] args) {
 
-		int numberOfPhilosophers = 5;
+        public static void main(String[] args) {
+
+                int numberOfPhilosophers = 5;
                 Philosopher[] philosophers = new Philosopher[numberOfPhilosophers];
                 Object[] chopsticks = new Object[numberOfPhilosophers];
 
                 // Toggle which part to run:
-                // true  => 3.1 (deadlock can happen)
+                // true => 3.1 (deadlock can happen)
                 // false => 3.2 (no deadlock + no starvation)
                 final boolean RUN_DEADLOCK_VERSION = true;
 
@@ -35,26 +35,28 @@ public class DiningPhilosophers {
                 }
 
                 exec.shutdown();
-	}
+        }
 
-        // 3.2: Waiter that grants BOTH chopsticks at once (no deadlock) + FIFO ticketing (no starvation)
+        // 3.2: Waiter that grants BOTH chopsticks at once (no deadlock) + FIFO
+        // ticketing (no starvation)
         public static class Waiter {
                 private static final ReentrantLock lock = new ReentrantLock(true); // fair lock
                 private static java.util.concurrent.locks.Condition cond;
                 private static boolean[] inUse;
 
                 // FIFO ticketing to prevent starvation (bounded waiting)
-                private static final java.util.concurrent.atomic.AtomicLong nextTicket =
-                                new java.util.concurrent.atomic.AtomicLong(0);
-                private static final java.util.concurrent.atomic.AtomicLong serving =
-                                new java.util.concurrent.atomic.AtomicLong(0);
+                private static final java.util.concurrent.atomic.AtomicLong nextTicket = new java.util.concurrent.atomic.AtomicLong(
+                                0);
+                private static final java.util.concurrent.atomic.AtomicLong serving = new java.util.concurrent.atomic.AtomicLong(
+                                0);
 
                 public static void init(int n) {
                         lock.lock();
                         try {
                                 cond = lock.newCondition();
                                 inUse = new boolean[n];
-                                for (int i = 0; i < n; i++) inUse[i] = false;
+                                for (int i = 0; i < n; i++)
+                                        inUse[i] = false;
                                 nextTicket.set(0);
                                 serving.set(0);
                         } finally {
@@ -73,7 +75,8 @@ public class DiningPhilosophers {
                                 inUse[left] = true;
                                 inUse[right] = true;
 
-                                // Move the FIFO window forward once this philosopher has been granted both sticks.
+                                // Move the FIFO window forward once this philosopher has been granted both
+                                // sticks.
                                 serving.incrementAndGet();
                                 cond.signalAll();
                         } finally {
@@ -93,7 +96,7 @@ public class DiningPhilosophers {
                 }
         }
 
-	public static class Philosopher implements Runnable {
+        public static class Philosopher implements Runnable {
 
                 private final int id;
                 private final int left;
@@ -110,8 +113,8 @@ public class DiningPhilosophers {
                         this.deadlockVersion = deadlockVersion;
                 }
 
-		@Override
-		public void run() {
+                @Override
+                public void run() {
                         try {
                                 while (true) {
                                         think();
@@ -142,7 +145,7 @@ public class DiningPhilosophers {
                         } catch (InterruptedException e) {
                                 Thread.currentThread().interrupt();
                         }
-		}
+                }
 
                 private void think() throws InterruptedException {
                         log("thinking");
@@ -157,13 +160,13 @@ public class DiningPhilosophers {
                 }
 
                 private void sleepALittle(int minMs, int maxMs) throws InterruptedException {
-                        int d = minMs + (int)(Math.random() * (maxMs - minMs + 1));
+                        int d = minMs + (int) (Math.random() * (maxMs - minMs + 1));
                         Thread.sleep(d);
                 }
 
                 private void log(String msg) {
                         System.out.println("P" + id + ": " + msg);
                 }
-	}
+        }
 
 }
