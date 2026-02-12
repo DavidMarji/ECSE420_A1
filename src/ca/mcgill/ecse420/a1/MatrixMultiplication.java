@@ -12,59 +12,62 @@ public class MatrixMultiplication {
 
 	public static void main(String[] args) {
 
-		// double[][] a = generateRandomMatrix(MATRIX_SIZE, MATRIX_SIZE);
-		// double[][] b = generateRandomMatrix(MATRIX_SIZE, MATRIX_SIZE);
-		// sequentialMultiplyMatrix(a, b);
-		// parallelMultiplyMatrix(a, b);
+		double[][] a = generateRandomMatrix(MATRIX_SIZE, MATRIX_SIZE);
+		double[][] b = generateRandomMatrix(MATRIX_SIZE, MATRIX_SIZE);
+		sequentialMultiplyMatrix(a, b);
+		parallelMultiplyMatrix(a, b);
 
-		// double[][] testA = {
-		// {1, 2},
-		// {3, 4}
-		// };
-		// double[][] testB = {
-		// {5, 6},
-		// {7, 8}
-		// };
+		double[][] testA = {
+		{1, 2},
+		{3, 4}
+		};
+		double[][] testB = {
+		{5, 6},
+		{7, 8}
+		};
 
-		// System.out.println("###### Sequential Multiplication ######");
-		// double[][] seqResult = sequentialMultiplyMatrix(testA, testB);
-		// System.out.println("###### Parallel Multiplication ######");
-		// double[][] parResult = parallelMultiplyMatrix(testA, testB);
+		System.out.println("###### Sequential Multiplication ######");
+		double[][] seqResult = sequentialMultiplyMatrix(testA, testB);
+		System.out.println("###### Parallel Multiplication ######");
+		double[][] parResult = parallelMultiplyMatrix(testA, testB);
 
-		// boolean matches = true;
-		// for (int r = 0; r < seqResult.length; r++) {
-		// for (int c = 0; c < seqResult[0].length; c++) {
-		// if (seqResult[r][c] != parResult[r][c]) {
-		// matches = false;
-		// }
-		// }
-		// }
-		// System.out.println("Sequential and parallel results match: " + matches);
+		boolean matches = true;
+		for (int r = 0; r < seqResult.length; r++) {
+		for (int c = 0; c < seqResult[0].length; c++) {
+		if (seqResult[r][c] != parResult[r][c]) {
+		matches = false;
+		}
+		}
+		}
+		System.out.println("Sequential and parallel results match: " + matches);
 
-		// System.out.println("Sequential result:");
-		// for (int r = 0; r < seqResult.length; r++) {
-		// for (int c = 0; c < seqResult[0].length; c++) {
-		// System.out.print(seqResult[r][c]);
-		// if (c < seqResult[0].length - 1) {
-		// System.out.print(" ");
-		// }
-		// }
-		// System.out.println();
-		// }
+		System.out.println("Sequential result:");
+		for (int r = 0; r < seqResult.length; r++) {
+		for (int c = 0; c < seqResult[0].length; c++) {
+		System.out.print(seqResult[r][c]);
+		if (c < seqResult[0].length - 1) {
+		System.out.print(" ");
+		}
+		}
+		System.out.println();
+		}
 
-		// System.out.println("Parallel result:");
-		// for (int r = 0; r < parResult.length; r++) {
-		// for (int c = 0; c < parResult[0].length; c++) {
-		// System.out.print(parResult[r][c]);
-		// if (c < parResult[0].length - 1) {
-		// System.out.print(" ");
-		// }
-		// }
-		// System.out.println();
-		// }
+		System.out.println("Parallel result:");
+		for (int r = 0; r < parResult.length; r++) {
+		for (int c = 0; c < parResult[0].length; c++) {
+		System.out.print(parResult[r][c]);
+		if (c < parResult[0].length - 1) {
+		System.out.print(" ");
+		}
+		}
+		System.out.println();
+		}
 
-		runThreadScalingExperiment(2000, new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15});
-		runSizeScalingExperiment(new int[]{100,200,500,1000,2000,3000,4000}, 7);
+		// Test command for 1.4
+		// runThreadScalingExperiment(2000, new int[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15});
+		
+		// Test command for 1.5
+		// runSizeScalingExperiment(new int[]{100,200,500,1000,2000,3000,4000}, 7);
 	}
 
 	/**
